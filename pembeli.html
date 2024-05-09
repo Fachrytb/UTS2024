@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Daftar Produk</title>
+  <title>Daftar Pembeli</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
@@ -12,15 +12,15 @@
 </head>
 
 <body>
-<h3>Daftar Produk</h3>
+<h3>Daftar Pembeli</h3>
 
-<table class="table"id="daftar-produk">
+<table class="table"id="daftar-pembeli">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Nama Produk</th>
-      <th scope="col">Harga</th>
-      <th scope="col">Stok</th>
+      <th scope="col">Nama Pembeli</th>
+      <th scope="col">Alamat</th>
+      <th scope="col">No.Tlpn</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -29,31 +29,28 @@
   </tbody>
 </table>
 <img src="loader.gif" style="width: 1.8em; display:  block" id="loader">
- <a href="produk-tambah.html"><button class="btn btn-primary tombol-tambah">Tambah Data Produk</button></a>
- <br></br>
- <a href="penjual.html">Link ke penjual</a>
- <br></br>
- <a href="pembeli.html">link ke pembeli</a>
+ <a href="pembeli.html"><button class="btn btn-primary tombol-tambah">Tambah Data Pembeli</button></a>
 <script type="module">
-  import {ambilDaftarproduk,hapusdata,formatAngka} from './main.js';
+  import {ambilDaftarpembeli,hapusdata,formatAngka} from './main.js';
   
   $(document).ready(async function(){
-  let elemendaftar = $("#daftar-produk > tbody");
-  let daftarproduk = await ambilDaftarproduk();
+  let elemendaftar = $("#daftar-pembeli > tbody");
+  let daftarpembeli = await ambilDaftarpembeli();
   let nomor = 1;
-  daftarproduk.forEach((data)=>{
+  daftarpembeli.forEach((data)=>{
     elemendaftar.append(
       '<tr>'+
       '<th>'+ nomor +'</th>'+
       '<td>'+ data.nama +'</td>'+
-      '<td>'+ formatAngka(data.harga) +'</td>'+
-      '<td>'+ data.stok +'</td>'+
+      '<td>'+ data.alamat +'</td>'+
+      '<td>'+ data.nohp +'</td>'+
          '<td>'   
       + ' <button class="btn btn-warning ubah" data="' +
           data.id +
           '">Ubah</button>' +
-     '<button class="btn btn-danger tombol-hapus" data="' + data.id + '">Hapus</button>' + 
-          '<img src="loader.gif" style="width: 1em; display: none" id="' + data.id + '">' +
+      ' <button class="btn btn-danger hapus" data="' +
+          data.id +
+          '">Hapus</button>' +
           '</td>'+
         
       '</tr>'
@@ -63,14 +60,12 @@
     
     $('#loader').hide();
     $('.hapus').click(async function() {
-       $(this).attr('disabled', 'disabled');
-        $('#' + $(this).attr('data')).show();
-        await hapusdata($(this).attr('data'));
+        await hapusdatapembeli($(this).attr('data'));
         location.reload();
       })
 
 $('.ubah').click(async function() {
-        window.location.replace('produk-edit.html?docId=' + $(this).attr('data'));
+        window.location.replace('ubah-pembeli.html?docId=' + $(this).attr('data'));
       })
   });
 </script>

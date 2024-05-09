@@ -25,6 +25,24 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+export async function ambilDaftarpembeli() {
+  const refDokumen = collection(db, "pembeli");
+  const kueri = query(refDokumen, orderBy("nama"));
+  const cuplikankueri = await getDocs(kueri);
+
+  let hasil = []; // tes
+  cuplikankueri.forEach((dok) => {
+    hasil.push({
+      id: dok.id,
+      nama: dok.data().nama,
+      alamat: dok.data().alamat,
+      nohp: dok.data().nohp,
+    });
+  });
+
+  return hasil;
+}
+
 
 export async function ambilDaftarproduk() {
   const refDokumen = collection(db, "produk");
@@ -80,3 +98,87 @@ export async function ambilProduk(docId) {
 
   return await docSnap.data();
 }
+
+//>>>>>>>>>>>>>>PEMBELI<<<<<<<<<<<<<<<<<<<<
+export async function hapusdatapembeli(docId) {
+  await deleteDoc(doc(db, "pembeli", docId));
+}
+export async function tambahPembeli(nama, alamat, nohp) {
+  try {
+    const dokRef = await addDoc(collection(db, "pembeli"), {
+      nama: nama,
+      alamat: alamat,
+      nohp: nohp
+    });
+    console.log('berhasil menambah data' + dok)
+  } catch (e) {
+    console.log('Gagal menambah data' + e);
+  }
+}
+export async function ubahPembeli(docId, nama, alamat, nohp) {
+  await updateDoc(doc(db, "pembeli", docId), {
+    nama: nama,
+    alamat: alamat,
+    nohp: nohp
+  });
+}
+export async function ambilPembeli(docId) {
+  const docRef = await doc(db, "pembeli", docId);
+  const docSnap = await getDoc(docRef);
+
+  return await docSnap.data();
+}
+//>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<
+
+//>>>>>>>>>>>>>PENJUAL<<<<<<<<<<<<<<<<<<<<<
+export async function ambilDaftarPenjual() {
+  const refDokumen = collection(db, "Penjual");
+  const kueri = query(refDokumen, orderBy("nama"));
+  const cuplikankueri = await getDocs(kueri);
+
+  let hasil = []; // tes
+  cuplikankueri.forEach((dok) => {
+    hasil.push({
+      id: dok.id,
+      nama: dok.data().nama,
+      alamat: dok.data().alamat,
+      nohp: dok.data().nohp,
+    });
+  });
+
+  return hasil;
+}
+
+export async function hapusdatapenjual(docId) {
+  await deleteDoc(doc(db, "Penjual", docId));
+}
+
+export async function tambahPenjual(nama, alamat, nohp) {
+  try {
+    const dokRef = await addDoc(collection(db, "Penjual"), {
+      nama: nama,
+      alamat: alamat,
+      nohp: nohp
+    });
+    console.log('berhasil menambah data' + dok)
+  } catch (e) {
+    console.log('Gagal menambah data' + e);
+  }
+}
+
+export async function ubahPenjual(docId, nama, alamat, nohp) {
+  await updateDoc(doc(db, "Penjual", docId), { 
+    nama: nama,
+    alamat: alamat,
+    nohp: nohp
+  
+  });
+}
+
+export async function ambilPenjual(docId) {
+  const docRef = await doc(db, "Penjual", docId);
+  const docSnap = await getDoc(docRef);
+  
+  return await docSnap.data();
+}
+//>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<
