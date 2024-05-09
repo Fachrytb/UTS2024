@@ -31,7 +31,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const storage = getStorage();
+
 
 export async function ambilDaftarpembeli() {
   const refDokumen = collection(db, "pembeli");
