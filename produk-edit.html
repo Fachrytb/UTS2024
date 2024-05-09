@@ -21,11 +21,11 @@
       <input type="text" class="form-control" id="input-nama">
     </div>
     <div class="mb-3">
-      <label class="form-label">Alamat</label>
-      <input type="text" class="form-control" id="input-Alamat">
+      <label class="form-label">Harga</label>
+      <input type="text" class="form-control" id="input-harga">
     </div>
     <div class="mb-3">
-      <label class="form-label">No.Telepon</label>
+      <label class="form-label">Stok</label>
       <input type="text" class="form-control" id="input-stok">
     </div>
     <button type="submit" class="btn btn-primary" id="tombol-ubah">Ubah</button>
@@ -38,7 +38,7 @@
 
     let tombolUbah = document.getElementById('tombol-ubah');
     let elemenNamaProduk= document.getElementById('input-nama');
-     let elemenAlamat = document.getElementById('input-Alamat');
+     let elemenHarga = document.getElementById('input-harga');
      let elemenStok = document.getElementById('input-stok');
     const queryString = window.location.search;
     const parameterURL = new URLSearchParams(queryString);
@@ -46,12 +46,12 @@
     const Produk = await ambilProduk(docId);
     
     elemenNamaProduk.value = Produk.nama;
-      elemenAlamat.value = Produk.alamat;
+      elemenHarga.value = Produk.harga;
       elemenStok.value = Produk.stok;
 
     tombolUbah.addEventListener('click', async function(el) {
       el.preventDefault();
-      await ubahProduk(docId, elemenNamaProduk.value, elemenAlamat.value, elemenStok.value);
+      await ubahProduk(docId, elemenNamaProduk.value, elemenHarga.value, elemenStok.value);
       window.location.href = 'index.html';
     });
   </script>

@@ -79,7 +79,7 @@
 import {ambilDaftarproduk} from './main.js';
    
      $(document).ready(async function(){
-  let elemendaftar = $("#daftar-produk > tbody");
+  let elemendaftar = $("#daftar-barang");
   let daftarproduk = await ambilDaftarproduk();
 
   daftarproduk.forEach((data)=>{
