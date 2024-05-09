@@ -11,11 +11,7 @@ import {
   orderBy,
   updateDoc
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-import {
-  getFirestore, 
-  collection, 
-  getDocs
-} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+
 import { 
   getStorage, 
   ref, 
