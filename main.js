@@ -11,6 +11,17 @@ import {
   orderBy,
   updateDoc
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import {
+  getFirestore, 
+  collection, 
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+import { 
+  getStorage, 
+  ref, 
+  getDownloadURL 
+} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js";
+  
 const firebaseConfig = {
   apiKey: "AIzaSyCjXlgysJkN-2s3Gu0forgp7as5-9NqCkI",
   authDomain: "pasar-b04a7.firebaseapp.com",
@@ -24,6 +35,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage();
 
 export async function ambilDaftarpembeli() {
   const refDokumen = collection(db, "pembeli");
@@ -51,6 +63,8 @@ export async function ambilDaftarproduk() {
 
   let hasil = []; // tes
   cuplikankueri.forEach((dok) => {
+
+    
     hasil.push({
       id: dok.id,
       nama: dok.data().nama,
